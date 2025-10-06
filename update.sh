@@ -1,13 +1,9 @@
 #!/bin/bash
-# safe-subtree-pull.sh
 # Safely pull updates for an existing git subtree without creating nested directories.
 
-set -e  # Exit immediately if a command fails
+set -e
 
 echo "=== Safe Git Subtree Pull ==="
-
-# Move to repository root
-cd /home/js/study/github || { echo "Error: repository not found"; exit 1; }
 
 # Check if working tree is clean
 if ! git diff-index --quiet HEAD --; then
@@ -28,7 +24,7 @@ if ! git remote | grep -qx "$remote"; then
 fi
 
 # Prompt for subtree prefix
-read -p "Enter the subtree prefix path (e.g., lang/cpp/cppprimer): " prefix
+read -p "Enter the subtree prefix path : " prefix
 
 # Check that the prefix exists
 if [ ! -d "$prefix" ]; then
@@ -53,4 +49,3 @@ git subtree pull --prefix="$prefix" "$remote" main --squash
 
 echo
 echo "Subtree pull completed successfully."
-
